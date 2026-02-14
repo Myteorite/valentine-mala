@@ -6,15 +6,16 @@ body {
     user-select: none;
 }
 
-/* Pixel Art Background */
+/* Pixel Art Background (Lokal) */
 .pixel-bg {
-    background: url('https://i.pinimg.com/originals/1e/0e/8c/1e0e8c7929d91543d3b73e5dc7c9e900.gif') no-repeat center center fixed;
+    /* Pastikan file background.gif ada di folder assets/images/ */
+    background: url('assets/images/background.gif') no-repeat center center fixed;
     background-size: cover;
 }
 
 /* --- RETRO WINDOW STYLES --- */
 .retro-window {
-    background: #ffe6f2; /* Light Pink */
+    background: #ffe6f2;
     border: 4px solid #ff99cc;
     box-shadow: 8px 8px 0px rgba(0,0,0,0.2);
     border-radius: 4px;
@@ -137,11 +138,10 @@ body {
     z-index: 10;
 }
 
-/* --- BOOT SCREEN ANIMATION --- */
+/* --- ANIMATIONS --- */
 .cursor-blink { animation: blink 1s infinite; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-/* --- UTILS --- */
 .hidden { display: none !important; }
 
 .pixel-btn {
@@ -157,13 +157,11 @@ body {
     text-transform: uppercase;
 }
 
-/* Tombol NO yang menghindar */
 #noBtn {
-    transition: all 0.1s ease; /* Gerakan sangat cepat */
-    z-index: 9999; /* Selalu paling atas */
+    transition: all 0.1s ease;
+    z-index: 9999;
 }
 
-/* Tombol YES yang membesar */
 #yesBtn {
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 50;
