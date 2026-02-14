@@ -1,0 +1,83 @@
+// --- BOOT SEQUENCE ---
+window.onload = function() {
+    // Simulasi loading screen selama 3 detik
+    setTimeout(() => {
+        document.getElementById('bootScreen').classList.add('hidden');
+        document.getElementById('loginScreen').classList.remove('hidden');
+        document.getElementById('loginScreen').classList.add('flex');
+    }, 3000); 
+}
+
+// --- LOGIN LOGIC ---
+function checkName() {
+    const input = document.getElementById('nameInput').value.toLowerCase().trim();
+    // Daftar jawaban yang diterima
+    const validNames = ['nirmala', 'mala', 'putri', 'lestari', 'nirmala putri lestari'];
+
+    if (validNames.includes(input)) {
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('questionScreen').classList.remove('hidden');
+        // Mencoba memutar musik (browser mungkin memblokir autoplay sebelum interaksi)
+        document.getElementById('bgMusic').play().catch(e => console.log("Audio play failed asking interaction"));
+    } else {
+        document.getElementById('errorMsg').classList.remove('hidden');
+    }
+}
+
+// --- DODGE LOGIC (Tombol NO Kabur) ---
+let scaleFactor = 1;
+
+function dodge() {
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+
+    // 1. Ubah ke Fixed Position agar bisa kabur ke seluruh layar
+    noBtn.style.position = 'fixed'; 
+
+    // 2. Hitung Posisi Acak
+    const maxWidth = window.innerWidth - 100; 
+    const maxHeight = window.innerHeight - 50;
+    const randomX = Math.floor(Math.random() * maxWidth);
+    const randomY = Math.floor(Math.random() * maxHeight);
+
+    noBtn.style.left = randomX + 'px';
+    noBtn.style.top = randomY + 'px';
+
+    // 3. Perbesar tombol YES setiap kali tombol NO didekati
+    scaleFactor += 0.4; // Membesar
+    yesBtn.style.transform = `scale(${scaleFactor})`;
+    yesBtn.style.boxShadow = `${4 * scaleFactor}px ${4 * scaleFactor}px 0px rgba(255, 20, 147, 0.5)`;
+    
+    // Ubah teks tombol YES
+    if(scaleFactor > 2) yesBtn.innerText = "PLEASE YES! ❤️";
+    if(scaleFactor > 3) yesBtn.innerText = "HARUS YES!! 😡";
+}
+
+// --- ACCEPT LOVE LOGIC ---
+function acceptLove() {
+    // Efek Confetti (Kertas warna-warni)
+    const duration = 3000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+    }());
+
+    // Pindah ke Layar Desktop setelah 1 detik
+    setTimeout(() => {
+        document.getElementById('questionScreen').classList.add('hidden');
+        document.getElementById('desktopScreen').classList.remove('hidden');
+        document.getElementById('desktopScreen').classList.add('flex');
+    }, 1000);
+}
+
+// --- MODAL LOGIC (Buka Tutup Folder) ---
+function openModal(id) {
+    document.getElementById(id).classList.remove('hidden');
+}
+
+function closeModal(element) {
+    element.classList.add('hidden');
+}
