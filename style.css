@@ -4,11 +4,11 @@ body {
     background-color: #000;
     overflow: hidden;
     user-select: none;
+    -webkit-tap-highlight-color: transparent; /* Hilangkan highlight biru di HP */
 }
 
-/* Pixel Art Background (Lokal) */
+/* Pixel Art Background */
 .pixel-bg {
-    /* Pastikan file background.gif ada di folder assets/images/ */
     background: url('assets/images/background.gif') no-repeat center center fixed;
     background-size: cover;
 }
@@ -28,6 +28,152 @@ body {
     display: flex;
     align-items: center;
     border-bottom: 4px solid #ff99cc;
+    justify-content: space-between;
+}
+
+.window-title {
+    color: #d63384;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.window-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.win-btn {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+.close { background: #ff5f57; }
+.min { background: #ffbd2e; }
+.max { background: #28c940; }
+
+/* --- BROWSER BAR --- */
+.address-bar {
+    background: #fff;
+    border: 2px solid #ff99cc;
+    margin: 10px;
+    padding: 4px 10px;
+    font-size: 1.2rem;
+    color: #ff66b2;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+}
+
+/* --- FOLDERS --- */
+.folder-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.folder {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+    width: 100px;
+}
+
+.folder:hover, .folder:active {
+    transform: scale(1.1);
+}
+
+.folder-icon {
+    font-size: 4.5rem;
+    color: #ffd700;
+    text-shadow: 3px 3px 0px #b8860b;
+    line-height: 1;
+}
+
+.folder-name {
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    margin-top: 5px;
+    display: inline-block;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+/* --- MODAL POPUP --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    backdrop-filter: blur(2px);
+}
+
+/* --- PHOTO GRID --- */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 8px;
+    background: white;
+}
+.photo-grid img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border: 2px solid #ffb3d9;
+    border-radius: 4px;
+    transition: transform 0.2s;
+}
+
+/* --- ANIMATIONS --- */
+.cursor-blink { animation: blink 1s infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.hidden { display: none !important; }
+
+.pixel-btn {
+    background: #ff69b4;
+    color: white;
+    border: 4px solid #fff;
+    box-shadow: 4px 4px 0px #ff1493;
+    padding: 10px 30px;
+    font-size: 1.8rem;
+    font-family: 'VT323', monospace;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    /* Agar tombol responsif saat disentuh */
+    touch-action: manipulation; 
+}
+
+/* Tombol NO yang menghindar */
+#noBtn {
+    transition: top 0.1s, left 0.1s; /* Animasi perpindahan smooth */
+    z-index: 9999;
+}
+
+/* Tombol YES yang membesar */
+#yesBtn {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 50;
+}
+
+.screen-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}    border-bottom: 4px solid #ff99cc;
     justify-content: space-between;
 }
 
