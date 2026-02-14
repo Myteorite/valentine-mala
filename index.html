@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mala's Heart OS v3.1</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="assets/audio/backsound.mp3" type="audio/mpeg">
+        Browser kamu tidak mendukung audio.
+    </audio>
+
+    <div id="bootScreen" class="h-screen w-full bg-black text-green-400 p-8 flex flex-col justify-end font-mono">
+        <div id="bootText" class="text-xl md:text-3xl leading-relaxed">
+            > SYSTEM BOOT...<br>
+            > CHECKING_HEART_RATE... <span class="text-red-500">HIGH</span><br>
+            > LOADING_MEMORY_BANKS... OK.<br>
+            > TARGET_USER: NIRMALA PUTRI LESTARI<br>
+            > STATUS: BEAUTIFUL<br>
+            > <span class="cursor-blink">_</span>
+        </div>
+    </div>
+
+    <div id="loginScreen" class="hidden screen-container pixel-bg flex-col">
+        <div class="retro-window p-8 text-center bg-gray-100 shadow-2xl" style="width: 90%; max-width: 400px;">
+            <div class="window-header mb-6">
+                <span class="window-title">LOGIN.EXE</span>
+                <div class="window-buttons"><div class="win-btn close"></div></div>
+            </div>
+            <p class="text-2xl text-pink-600 mb-4">Enter Password: Nama Pacar Azmy</p>
+            <p class="text-lg text-gray-500 mb-2">(Ketik Nama Panggilan / Lengkap)</p>
+            <input type="text" id="nameInput" placeholder="Contoh: Nirmala" class="w-full p-3 border-4 border-pink-300 font-mono text-2xl mb-6 text-center uppercase focus:outline-none focus:border-pink-500">
+            <button onclick="checkName()" class="pixel-btn w-full hover:bg-pink-400">UNLOCK HEART</button>
+            <p id="errorMsg" class="text-red-500 mt-4 text-xl hidden animate-pulse">Nama salah cantik, coba lagi!</p>
+        </div>
+    </div>
+
+    <div id="questionScreen" class="hidden screen-container pixel-bg relative overflow-hidden">
+        
+        <div class="retro-window p-8 text-center z-10" style="width: 90%; max-width: 600px;">
+            <div class="window-header mb-6">
+                <span class="window-title">CRITICAL_QUESTION</span>
+                <div class="window-buttons">
+                    <div class="win-btn close"></div>
+                    <div class="win-btn min"></div>
+                </div>
+            </div>
+            
+            <h1 class="text-5xl md:text-6xl text-pink-600 mb-2 leading-none">Kiw, Haii Cantik...</h1>
+            <p class="text-3xl md:text-4xl text-gray-700 mb-8">Will you be my Valentine?</p>
+            
+            <div class="flex justify-center gap-8 mt-4 relative">
+                <button id="yesBtn" onclick="acceptLove()" class="pixel-btn">
+                    YES! ❤️
+                </button>
+                <button id="noBtn" onmouseover="dodge()" onclick="dodge()" class="pixel-btn bg-gray-400 border-gray-200 text-gray-800">
+                    NO
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="desktopScreen" class="hidden screen-container pixel-bg p-4 flex-col md:flex-row gap-8 items-start md:items-center justify-center">
+        
+        <div class="retro-window w-full md:w-2/3 h-[500px] flex flex-col shadow-2xl">
+            <div class="window-header">
+                <span class="window-title">❤️ for_mala.html</span>
+                <div class="window-buttons">
+                    <div class="win-btn close"></div>
+                    <div class="win-btn min"></div>
+                    <div class="win-btn max"></div>
+                </div>
+            </div>
+            <div class="address-bar">
+                <span class="mr-2">🌐</span> love://mala/forever
+            </div>
+            <div class="bg-white flex-1 p-8 overflow-y-auto">
+                <div class="border-l-4 border-pink-400 pl-6 py-2">
+                    <p class="text-3xl text-pink-500 mb-4 font-bold">This is for you.</p>
+                    <p class="text-2xl text-gray-600 mb-2">For the person I choose</p>
+                    <p class="text-2xl text-gray-600 mb-2">in every version of the day.</p>
+                    <p class="text-2xl text-gray-600 mb-6">Near or far,</p>
+                    <p class="text-3xl text-pink-600 font-bold bg-pink-100 inline-block px-2">you are where my heart goes first.</p>
+                </div>
+                <div class="mt-8 text-center text-gray-400 text-xl">
+                    *Love unfolds one click at a time*
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full md:w-auto flex flex-row md:flex-col justify-center gap-8 md:gap-12 folder-container">
+            <div class="folder" onclick="openModal('modalMemories')">
+                <div class="folder-icon">📁</div>
+                <span class="folder-name">Our_Memories</span>
+            </div>
+            
+            <div class="folder" onclick="openModal('modalWhy')">
+                <div class="folder-icon">📁</div>
+                <span class="folder-name">Why_You</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalMemories" class="hidden modal-overlay" onclick="closeModal(this)">
+        <div class="retro-window p-2 bg-white max-w-md w-full mx-4" onclick="event.stopPropagation()">
+            <div class="window-header mb-2 bg-pink-200">
+                <span class="window-title text-sm">Viewer.exe</span>
+                <div class="win-btn close" onclick="closeModal(document.getElementById('modalMemories'))"></div>
+            </div>
+            <div class="photo-grid">
+                <img src="assets/images/mala-1.jpg" alt="Foto 1">
+                <img src="assets/images/mala-2.jpg" alt="Foto 2">
+                <img src="assets/images/mala-3.jpg" alt="Foto 3">
+                <img src="assets/images/mala-4.jpg" alt="Foto 4">
+            </div>
+            <p class="text-center text-xl mt-2 text-pink-500">Kumpulan momen favoritku ❤️</p>
+        </div>
+    </div>
+
+    <div id="modalWhy" class="hidden modal-overlay" onclick="closeModal(this)">
+        <div class="retro-window p-6 max-w-md bg-white w-full mx-4" onclick="event.stopPropagation()">
+            <div class="window-header mb-4 bg-yellow-200">
+                <span class="window-title">Note.txt</span>
+                <div class="win-btn close" onclick="closeModal(document.getElementById('modalWhy'))"></div>
+            </div>
+            <h3 class="text-4xl text-pink-600 border-b-4 border-pink-200 mb-4 inline-block">Why You?</h3>
+            <p class="text-2xl text-gray-700 leading-relaxed">
+                "Karena cuma Mala yang bisa bikin hari biasa jadi spesial. Senyum kamu itu alasan kenapa aku semangat setiap hari."
+                <br><br>
+                <span class="text-pink-500 font-bold">I love you!</span>
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
